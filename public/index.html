@@ -7,10 +7,17 @@
     <title>RockPaperScissors</title>
 </head>
 <body>
-    <h1>Rock Paper Scissors Game</h1>
-    <p>Choose your move:</p>
-    <div></div>
-    <div></div>
+    <div class="game-container">
+        <h1>Rock Paper Scissors Game</h1>
+        <p>Choose your move:</p>
+        <div>
+            <button id="rock-btn">👊</button>
+            <button id="paper-btn">🖐️</button>
+            <button id="scissors-btn">✌️</button>
+        </div>
+        <span id="result-message"></span>
+        <p>Your score: <span id="player-score">0</span> Computer score: <span id="computer-score">0</span></p>
+    </div>
     <script type="module" src="dist/script.js"></script>
 </body>
 </html>
