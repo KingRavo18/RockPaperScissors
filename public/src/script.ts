@@ -1,30 +1,35 @@
-function playGame(player_choice : string) : void {
+function playGame(){
     const resultMessage: HTMLElement | null = document.getElementById("result-message");
-    const player_score_display: HTMLElement | null = document.getElementById("player-score");
-    const computer_score_display: HTMLElement | null = document.getElementById("computer-score");
     const computer_options: string[] = ["rock", "paper", "scissors"];
-    const computer_choice: string | undefined = computer_options[Math.floor(Math.random() * 3)];
-    
+    let computer_score: number = 0;
+    let player_score: number = 0;
+    let outcome: string = "";
 
-    if(player_choice === computer_choice){
-        (resultMessage as HTMLElement).textContent = "It's a tie!";
-        return;
+    return function(player_choice : string) {
+        const computer_choice: string | undefined = computer_options[Math.floor(Math.random() * 3)];
+        if(player_choice === computer_choice){
+            (resultMessage as HTMLElement).textContent = "It's a tie!";
+            return;
+        }
+        switch(computer_choice){
+            case "rock":
+                outcome = player_choice === "scissors" ? "You lose! Rock beats scissors." : "You win! Paper beats rock.";
+                break;
+            case "paper":
+                outcome = player_choice === "rock" ? "You lose! Paper beats rock." : "You win! Scissors beat paper.";
+                break;
+            case "scissors":
+                outcome = player_choice === "paper" ? "You lose! Scissors beat paper." : "You win! Rock beats scissors.";
+                break;
+        }
+        outcome.includes("You lose!") ? computer_score++ : player_score++;
+        (resultMessage as HTMLElement).textContent = outcome;
+        (document.getElementById("player-score") as HTMLElement).textContent = String(player_score);
+        (document.getElementById("computer-score") as HTMLElement).textContent = String(computer_score);
     }
-
-    switch(computer_choice){
-        case "rock":
-            (resultMessage as HTMLElement).textContent = player_choice === "scissors" ? "You lose. Rock beats scissors." : "You win! Paper beats rock.";
-            break;
-        case "paper":
-            (resultMessage as HTMLElement).textContent = player_choice === "rock" ? "You lose. Paper beats rock." : "You win! Scissors beat paper.";
-            break;
-        case "scissors":
-            (resultMessage as HTMLElement).textContent = player_choice === "paper" ? "You lose. Scissors beat paper." : "You win! Rock beats scissors.";
-            break;
-    }
-    
 }
 
-(document.getElementById("rock-btn") as HTMLElement).onclick = () => playGame('rock');
-(document.getElementById("paper-btn") as HTMLElement).onclick = () => playGame('paper');
-(document.getElementById("scissors-btn") as HTMLElement).onclick = () => playGame('scissors');
+const play = playGame();
+(document.getElementById("rock-btn") as HTMLElement).onclick = () => play('rock');
+(document.getElementById("paper-btn") as HTMLElement).onclick = () => play('paper');
+(document.getElementById("scissors-btn") as HTMLElement).onclick = () => play('scissors');
