@@ -4,7 +4,7 @@ function playGame() {
     let computer_score = 0;
     let player_score = 0;
     let outcome = "";
-    return function (player_choice) {
+    function play(player_choice) {
         const computer_choice = computer_options[Math.floor(Math.random() * 3)];
         if (player_choice === computer_choice) {
             resultMessage.textContent = "It's a tie!";
@@ -25,11 +25,20 @@ function playGame() {
         resultMessage.textContent = outcome;
         document.getElementById("player-score").textContent = String(player_score);
         document.getElementById("computer-score").textContent = String(computer_score);
-    };
+    }
+    function reset() {
+        computer_score = 0;
+        player_score = 0;
+        document.getElementById("player-score").textContent = String(player_score);
+        document.getElementById("computer-score").textContent = String(computer_score);
+        resultMessage.textContent = "";
+    }
+    return { play, reset };
 }
-const play = playGame();
+const { play, reset } = playGame();
 document.getElementById("rock-btn").onclick = () => play('rock');
 document.getElementById("paper-btn").onclick = () => play('paper');
 document.getElementById("scissors-btn").onclick = () => play('scissors');
+document.getElementById("reset-btn").onclick = () => reset();
 export {};
 //# sourceMappingURL=script.js.map

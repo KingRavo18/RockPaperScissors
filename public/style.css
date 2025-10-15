@@ -56,5 +56,21 @@ body{
     & #result-message{
         font-size: 170%;
     }
+
+    & #reset-btn{
+        background-color: black;
+        color: white;
+        padding: 10px 15px;
+        font-size: 120%;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        transition: opacity 500ms;
+
+        &:hover{
+            opacity: 50%;
+        }
+    }
 }
 
