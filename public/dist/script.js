@@ -1,5 +1,9 @@
 function playGame() {
-    const resultMessage = document.getElementById("result-message");
+    const htmlElements = {
+        resultMessage: document.getElementById("result-message"),
+        playerScoreDisplay: document.getElementById("player-score"),
+        computerScoreDisplay: document.getElementById("computer-score")
+    };
     const computer_options = ["rock", "paper", "scissors"];
     let computer_score = 0;
     let player_score = 0;
@@ -7,7 +11,7 @@ function playGame() {
     function play(player_choice) {
         const computer_choice = computer_options[Math.floor(Math.random() * 3)];
         if (player_choice === computer_choice) {
-            resultMessage.textContent = "It's a tie!";
+            htmlElements.resultMessage.textContent = "It's a tie!";
             return;
         }
         switch (computer_choice) {
@@ -22,16 +26,16 @@ function playGame() {
                 break;
         }
         outcome.includes("You lose!") ? computer_score++ : player_score++;
-        resultMessage.textContent = outcome;
-        document.getElementById("player-score").textContent = String(player_score);
-        document.getElementById("computer-score").textContent = String(computer_score);
+        htmlElements.resultMessage.textContent = outcome;
+        htmlElements.playerScoreDisplay.textContent = String(player_score);
+        htmlElements.computerScoreDisplay.textContent = String(computer_score);
     }
     function reset() {
         computer_score = 0;
         player_score = 0;
-        document.getElementById("player-score").textContent = String(player_score);
-        document.getElementById("computer-score").textContent = String(computer_score);
-        resultMessage.textContent = "";
+        htmlElements.resultMessage.textContent = "";
+        htmlElements.playerScoreDisplay.textContent = String(player_score);
+        htmlElements.computerScoreDisplay.textContent = String(computer_score);
     }
     return { play, reset };
 }

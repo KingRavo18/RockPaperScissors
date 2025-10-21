@@ -1,14 +1,23 @@
-function playGame(){
-    const resultMessage: HTMLElement | null = document.getElementById("result-message");
-    const computer_options: string[] = ["rock", "paper", "scissors"];
-    let computer_score: number = 0;
-    let player_score: number = 0;
-    let outcome: string = "";
+interface gameReturnTypes {
+    play: (player_choice: string) => void;
+    reset: () => void;
+}
 
-    function play(player_choice : string) : void{
-        const computer_choice: string | undefined = computer_options[Math.floor(Math.random() * 3)];
+function playGame(): gameReturnTypes{
+    const htmlElements = {
+        resultMessage: document.getElementById("result-message") as HTMLElement,
+        playerScoreDisplay: document.getElementById("player-score") as HTMLElement,
+        computerScoreDisplay: document.getElementById("computer-score") as HTMLElement
+    } as const;
+    const computer_options = ["rock", "paper", "scissors"];
+    let computer_score = 0;
+    let player_score = 0;
+    let outcome = "";
+
+    function play(player_choice : string){
+        const computer_choice = computer_options[Math.floor(Math.random() * 3)];
         if(player_choice === computer_choice){
-            (resultMessage as HTMLElement).textContent = "It's a tie!";
+            htmlElements.resultMessage.textContent = "It's a tie!";
             return;
         }
         switch(computer_choice){
@@ -23,17 +32,17 @@ function playGame(){
                 break;
         }
         outcome.includes("You lose!") ? computer_score++ : player_score++;
-        (resultMessage as HTMLElement).textContent = outcome;
-        (document.getElementById("player-score") as HTMLElement).textContent = String(player_score);
-        (document.getElementById("computer-score") as HTMLElement).textContent = String(computer_score);
+        htmlElements.resultMessage.textContent = outcome;
+        htmlElements.playerScoreDisplay.textContent = String(player_score);
+        htmlElements.computerScoreDisplay.textContent = String(computer_score);
     }
 
-    function reset() : void{
+    function reset(){
         computer_score = 0;
         player_score = 0;
-        (document.getElementById("player-score") as HTMLElement).textContent = String(player_score);
-        (document.getElementById("computer-score") as HTMLElement).textContent = String(computer_score);
-        (resultMessage as HTMLElement).textContent = "";
+        htmlElements.resultMessage.textContent = "";
+        htmlElements.playerScoreDisplay.textContent = String(player_score);
+        htmlElements.computerScoreDisplay.textContent = String(computer_score);
     }
 
     return {play, reset}
